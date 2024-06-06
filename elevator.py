@@ -29,7 +29,7 @@ class Elevator:
         self.busy = False
 
         pygame.mixer.init()
-        self.sound = pygame.mixer.Sound('/Users/noambooko/Desktop/python/ElevatorChallenge - Python/ding.mp3')
+        self.sound = pygame.mixer.Sound(ELEVATOR_SOUND)
 
 
     

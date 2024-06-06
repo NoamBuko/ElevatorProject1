@@ -13,8 +13,8 @@ class Gap:
         screen.blit(self.gap_img, (self.x, self.y))
 
 
-    def update_up(self):
+    def scroll_up(self):
         self.y -= SCROLL_SPEED
 
-    def update_down(self):
+    def scroll_down(self):
         self.y += SCROLL_SPEED

@@ -15,10 +15,10 @@ class Floor:
         screen.blit(self.pic, (self.x_pixel, self.y_pixel))
 
     
-    def update_up(self):
+    def scroll_up(self):
         self.y_pixel -= SCROLL_SPEED
 
-    def update_down(self):
+    def scroll_down(self):
         self.y_pixel += SCROLL_SPEED
 
          

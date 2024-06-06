@@ -26,14 +26,14 @@ while run:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 4:  # Scroll up
-                building.update_down(screen)
+                building.scroll_down_all()
             elif event.button == 5:  # Scroll down
-                building.update_up(screen)
+                building.scroll_up_all()
             else:
                 position = event.pos
     
                 building.check_for_new_calls(position)
-   
+
 
     building.update_all()
     building.draw_all(screen)

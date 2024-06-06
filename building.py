@@ -132,44 +132,40 @@ class Building:
         self.add_floor_numbers(screen)
 
 
-    def update_up(self, screen):
+    def scroll_up_all(self):
         self.scrolled -= SCROLL_SPEED
 
         for gap in self.list_of_gaps:
-            gap.update_up()
+            gap.scroll_up()
             
         for elevator in self.list_of_elevators:
-                elevator.update_up()
+                elevator.scroll_up()
 
         for floor in self.list_of_floors:
-                floor.update_up()
+                floor.scroll_up()
             
         for button in self.list_of_buttons:
-                button.update_up()
+                button.scroll_up()
 
         for timer in self.list_of_timers:
-                timer.update_up()
+                timer.scroll_up()
 
 
-
-
-    def update_down(self, screen):
+    def scroll_down_all(self):
         self.scrolled += SCROLL_SPEED
 
         for gap in self.list_of_gaps:
-            gap.update_down()
+            gap.scroll_down()
         
         for elevator in self.list_of_elevators:
-            elevator.update_down()
+            elevator.scroll_down()
 
         for floor in self.list_of_floors:
-            floor.update_down()
+            floor.scroll_down()
         
         for button in self.list_of_buttons:
-            button.update_down()
+            button.scroll_down()
 
         for timer in self.list_of_timers:
-            timer.update_down()
+            timer.scroll_down()
 
-    
-               

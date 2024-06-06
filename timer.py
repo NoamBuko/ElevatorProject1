@@ -26,4 +26,12 @@ class Timer:
             time_left = integer_part + '.' + decimal_part[:1] # now only has first 2 numbers after the decimal point
             img = self.text_font.render(time_left, True, TIMER_FONT_COLOR)
             screen.blit(img, (self.x_pixel, self.y_pixel))
+
+    
+    def update_up(self):
+        self.y_pixel -= SCROLL_SPEED
+        
+
+    def update_down(self):
+        self.y_pixel += SCROLL_SPEED
     

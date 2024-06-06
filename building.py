@@ -4,16 +4,13 @@ from floor import Floor
 from elevator import Elevator
 from button import Button
 from timer import Timer # type: ignore
-import time
+from gap import Gap
 
 
 class Building:
     def __init__(self): # not sure if list of elvs or num of elvs
         # init building according to num of floors and elvs, assign the speed for the elvs, and the pixels for each element
         pygame.init()
-
-        self.gap_img = pygame.image.load(GAP_PIC)
-        self.gap_img = pygame.transform.scale(self.gap_img, (GAP_WIDTH, GAP_HEIGHT))
 
         self.floor_num_font = pygame.font.SysFont(FLOOR_NUMBER_FONT, FLOOR_NUMBER_FONT_SIZE)
 
@@ -22,6 +19,8 @@ class Building:
         self.list_of_buttons = []
         self.list_of_gaps = []
         self.list_of_timers = []
+
+        self.scrolled = 0
 
         self.speed = self.calculate_speed()
 
@@ -38,12 +37,11 @@ class Building:
 
     def build_floors(self): 
         x_pixel = FLOOR_MARGIN # does not change for different floors
-        y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT - GAP_HEIGHT # does change for different floors
+        y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT # does change for different floors
         for number in range(NUM_OF_FLOORS):
             self.list_of_floors.append(Floor(number, x_pixel, y_pixel))
             y_pixel -= (GAP_HEIGHT + FLOOR_HEIGHT)
         
-
 
     def build_elevators(self):
         x_pixel = FLOOR_MARGIN + FLOOR_WIDTH + PIXELS_BETWEEN_ELEVATOR # does change for different elevators
@@ -55,15 +53,15 @@ class Building:
 
     def add_gaps(self):
         x_pixel = FLOOR_MARGIN
-        y_pixel = SCREEN_HEIGHT - GAP_HEIGHT
-        for gap in range(NUM_OF_FLOORS + 1):
-            self.list_of_gaps.append((x_pixel, y_pixel))
+        y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT - GAP_HEIGHT
+        for gap in range(NUM_OF_FLOORS - 1):
+            self.list_of_gaps.append(Gap(x_pixel, y_pixel))
             y_pixel -= (GAP_HEIGHT + FLOOR_HEIGHT)
     
 
     def add_buttons(self):
         x_pixel = FLOOR_MARGIN + (FLOOR_WIDTH - BUTTON_WIDTH) / 2
-        y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT - GAP_HEIGHT + (FLOOR_HEIGHT - BUTTON_HEIGHT) / 2
+        y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT + (FLOOR_HEIGHT - BUTTON_HEIGHT) / 2
         for number in range(NUM_OF_FLOORS):
             self.list_of_buttons.append(Button(number, x_pixel, y_pixel))
             y_pixel -= (GAP_HEIGHT + FLOOR_HEIGHT)
@@ -78,7 +76,7 @@ class Building:
             text_rect.center = self.list_of_buttons[number].rect.center
             screen.blit(text_surface, text_rect)
 
-
+    
     def check_for_new_calls(self, position):
         for button in self.list_of_buttons:
             result = button.check_if_clicked(position)
@@ -101,12 +99,8 @@ class Building:
         time_to_arrival = best_arrival[0]
         best_elevator = best_arrival[1]
 
-        self.list_of_timers.append(Timer(time_to_arrival, TIMER_MARGIN, (SCREEN_HEIGHT - FLOOR_HEIGHT) - floor * (GAP_HEIGHT + FLOOR_HEIGHT)))
+        self.list_of_timers.append(Timer(time_to_arrival, TIMER_MARGIN, (SCREEN_HEIGHT - FLOOR_HEIGHT) - floor * (GAP_HEIGHT + FLOOR_HEIGHT) + self.scrolled))
         best_elevator.new_call(floor, time_to_arrival) 
-       
-
-    def draw_gap(self, screen, gap): # draw the gaps between the floors
-        screen.blit(self.gap_img, gap)
 
         
     def update_all(self): # update all the objects -  elvs, timers, buttons
@@ -120,6 +114,9 @@ class Building:
 
 
     def draw_all(self, screen):   # draw everything just updated 
+        for gap in self.list_of_gaps:
+            gap.draw(screen)
+        
         for floor in self.list_of_floors:
             floor.draw(screen)
         
@@ -129,12 +126,50 @@ class Building:
         for button in self.list_of_buttons:
             button.draw(screen)
 
-        for gap in self.list_of_gaps:
-            self.draw_gap(screen, gap)
-
         for timer in self.list_of_timers:
             timer.plot(screen)
 
         self.add_floor_numbers(screen)
+
+
+    def update_up(self, screen):
+        self.scrolled -= SCROLL_SPEED
+
+        for gap in self.list_of_gaps:
+            gap.update_up()
+            
+        for elevator in self.list_of_elevators:
+                elevator.update_up()
+
+        for floor in self.list_of_floors:
+                floor.update_up()
+            
+        for button in self.list_of_buttons:
+                button.update_up()
+
+        for timer in self.list_of_timers:
+                timer.update_up()
+
+
+
+
+    def update_down(self, screen):
+        self.scrolled += SCROLL_SPEED
+
+        for gap in self.list_of_gaps:
+            gap.update_down()
+        
+        for elevator in self.list_of_elevators:
+            elevator.update_down()
+
+        for floor in self.list_of_floors:
+            floor.update_down()
+        
+        for button in self.list_of_buttons:
+            button.update_down()
+
+        for timer in self.list_of_timers:
+            timer.update_down()
+
     
                

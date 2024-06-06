@@ -121,4 +121,14 @@ class Elevator:
 
         else:
             screen.blit(self.pic_up, (self.current_x_pixel, self.current_y_pixel))
+
+    
+    def update_up(self):
+        self.current_y_pixel -= SCROLL_SPEED
+        self.start_trip_y_pixel -= SCROLL_SPEED
+
+
+    def update_down(self):
+        self.current_y_pixel += SCROLL_SPEED
+        self.start_trip_y_pixel += SCROLL_SPEED
         

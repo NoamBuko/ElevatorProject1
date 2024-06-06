@@ -2,8 +2,8 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 830
 BACKGROUND_PIC = 'ElevatorChallenge - Python/background.png'
 
-NUM_OF_FLOORS = 14
-FLOOR_PIC = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/pink_brick.png'
+NUM_OF_FLOORS = 20
+FLOOR_PIC = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/new_floor.png'
 FLOOR_WIDTH = 200
 FLOOR_HEIGHT = 50
 SECONDS_BETWEEN_FLOORS = 0.5
@@ -23,12 +23,14 @@ TIMER_WIDTH = 100
 TIMER_HEIGHT = 50
 TIMER_FONT = None
 TIMER_FONT_SIZE = 30
-TIMER_FONT_COLOR = "pink"
+TIMER_FONT_COLOR = "black"
 TIMER_MARGIN = 50
 
 NUM_OF_ELEVATORS = 3
-ELEVATOR_PIC_UP = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/rocket.png'
-ELEVATOR_PIC_DOWN = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/rocket_down.png'
+ELEVATOR_PIC_UP = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/elv.png'
+ELEVATOR_PIC_DOWN = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/elv.png'
 ELEVATOR_WIDTH = 40
 ELEVATOR_HEIGHT = 40
 PIXELS_BETWEEN_ELEVATOR = 10
+
+SCROLL_SPEED = 8

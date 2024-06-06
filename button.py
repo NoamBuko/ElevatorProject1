@@ -21,8 +21,15 @@ class Button:
                 return None
         return None
     
-
     
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
 
+
+    def update_up(self):
+        self.y_pixel -= SCROLL_SPEED
+        self.rect = pygame.Rect(self.x_pixel, self.y_pixel, BUTTON_WIDTH, BUTTON_HEIGHT)
+
+    def update_down(self):
+        self.y_pixel += SCROLL_SPEED
+        self.rect = pygame.Rect(self.x_pixel, self.y_pixel, BUTTON_WIDTH, BUTTON_HEIGHT)

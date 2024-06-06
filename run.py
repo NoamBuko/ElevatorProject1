@@ -17,17 +17,22 @@ background = pygame.transform.scale(background, ((SCREEN_WIDTH, SCREEN_HEIGHT)))
 run = True
 while run:
     clock.tick(60)
-    # screen.fill('white')
-    screen.blit(background, (0,0))
+    screen.fill('white')
+    #screen.blit(background, (0,0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            position = event.pos
+            if event.button == 4:  # Scroll up
+                building.update_down(screen)
+            elif event.button == 5:  # Scroll down
+                building.update_up(screen)
+            else:
+                position = event.pos
     
-            building.check_for_new_calls(position)
+                building.check_for_new_calls(position)
    
 
     building.update_all()
